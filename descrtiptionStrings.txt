@@ -1,0 +1,14 @@
+/ * Given the sentence. Print all small English letters,
+* Which do not belong to any words.
+
+* Option with index:
+* Two loops 'for' first check the location for a symbol.
+* If successful, the cycle counter is incremented by one.
+* The symbol is checked again.
+* 'for(i)' and 'for(j)' are compared. If it is equal to:
+* An additional variable is assigned to 'for(j)';
+* The Boolean variable is true;
+* Matched characters are replaced by -1(on a space)
+* (In a different kind of coding (0x20)
+* If the space checked from the start was chronically blank,
+* Then he stays in his place. * / */
