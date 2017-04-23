@@ -3,13 +3,12 @@
 #include <fstream>
 #include <cstdlib>
 #include <ctime>
+#include <conio.h>
 
 int create(const short range_min, const short range_max, const short numbersElements, int *originArray,
            int *finalArray, int *newArray, int count, int temp, int amount, int average);
 
-void ifStream();
-
-void fOrigin(const int *originArray);
+void WorkWithStream();
 
 using namespace std;
 
@@ -32,7 +31,12 @@ int main()
     temp = create(range_min, range_max, numbersElements, originArray, finalArray, newArray, count, temp, amount,
                   average);
 
-    fOrigin(originArray);
+    ofstream originOut("origin.bin", ios_base::binary);
+    if (originOut.is_open())
+    {
+        originOut.write((char*)originArray, sizeof(originArray));
+        originOut.close();
+    }
 
     ofstream originBin("originBinary.bin", ios::binary);
     if (originBin.is_open())
@@ -54,21 +58,13 @@ int main()
         textInBinary << finalArray[i] << endl;
     textInBinary.close();
 
-    ifStream();
+    WorkWithStream();
 
+    getch();
     return 0;
 }
 
-void fOrigin(const int *originArray) {
-    ofstream originOut("origin.bin", ios_base::binary);
-    if (originOut.is_open())
-    {
-        originOut.write((char*)originArray, sizeof(originArray));
-        originOut.close();
-    }
-}
-
-void ifStream() {
+void WorkWithStream() {
     ifstream finOut("origin.bin", ios_base::binary);
     int powerCount1 = 0;
     cout << "Original Array: " << endl;
@@ -126,8 +122,7 @@ int create(const short range_min, const short range_max, const short numbersElem
     {
         newArray[i] = originArray[i] >> 2; // i/2^2
         newArray[i] = (newArray[i] ^ (newArray[i] >> 31)) - (newArray[i] >> 31); // module
-        if((newArray[i] & 1) == 1) // parity check
-            newArray[i] = (newArray[i] ^ -1) + 1; // reversal of the sign of number
+        newArray[i] = (newArray[i] ^ -1) + 1; // reversal of the sign of number
     }
     return temp;
 }
