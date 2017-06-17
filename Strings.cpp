@@ -14,19 +14,18 @@ int main()
 {
     const short int TSIZE = 1000;
     char stroka[TSIZE];
-    
-	int indet;
+
+	int indet = 1000;
     char *sentence = new char[indet];
-    
+
 	const short int ABC = 27;
     char alphabet[ABC];
-	
+
 	int choice;
-    char again;
     char letter; // readable character
     int index = 0; // counter
     int templine = 0; // variable to exchange line items
-	
+
     for (letter = 'a'; letter <= 'z'; letter++)
     {
         alphabet[index]= letter;
@@ -34,13 +33,9 @@ int main()
     }
     alphabet[index] = '\0';
     cout << alphabet;
-    do
-    {
-        system("cls");
+
+    system("cls");
         cout << "Input static sentence: "; gets(stroka);
-        cin.get();
-        cout << "\nNumber of elements in the dynamic line: "; cin >> indet; indet = abs(indet);
-        cin.get();
         cout << "\nInput dynamic sentence: "; gets(sentence);
 		back:
 		system("cls");
@@ -54,15 +49,14 @@ int main()
         {
             case 1:
                 bubble(stroka, templine);
-                cout << stroka;
-		        strcat(stroka, alphabet);
+                strcat(stroka, alphabet);
                 sort_index(stroka);
  			cout << "New stroka: " << stroka << endl;
                 break;
-            case 2: 
+            case 2:
 				bubble(sentence, templine);
 				strcat(sentence, alphabet);
-				sort_index(sentence);		
+				sort_index(sentence);
         cout << "New sentence: " << sentence << endl;
 			    break;
             default:
@@ -71,8 +65,6 @@ int main()
                 goto back;
         }
 
-        cout << "\nDo you want to work again? (y/n): "; cin >> again;
-    } while (again == 'y');
     delete []sentence;
 	getch();
     return 0;
