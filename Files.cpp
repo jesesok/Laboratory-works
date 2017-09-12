@@ -22,23 +22,24 @@ void streamOld(const short num, FILE *file_origin, const char *originName);
 
 using namespace std;
 
-int main()
-{
+int main() {
     int numbersElements;
-    cout << "\nNumber of real numbers: "; cin >> numbersElements; numbersElements = abs(numbersElements);
+    cout << "\nNumber of real numbers: ";
+    cin >> numbersElements;
+    numbersElements = abs(numbersElements);
 
     int choice;
     back:
-    cout << "\nWhat do you want?" << endl << endl;
+    cout << "\nWhat do you want?" << endl
+         << endl;
     cout << "1 - Work with <fstream>" << endl;
     cout << "2 - Work with classical C" << endl;
-    cout << "\nYou choice: "; cin >> choice;
+    cout << "\nYou choice: ";
+    cin >> choice;
 
-    switch(choice)
-    {
-        case 1:
-        {
-            const short int TSIZE = 10000;
+    switch (choice) {
+        case 1: {
+            const short int TSIZE = 15;
             char *title1 = new char[TSIZE];
             char *title2 = new char[TSIZE];
 
@@ -48,8 +49,7 @@ int main()
 
             ifstream fin;
             fin.open(title1);
-            if (!fin)
-            {
+            if (!fin) {
                 cout << "Cannot open file " << title1 << " for reading" << endl;
                 return 1;
             }
@@ -57,8 +57,7 @@ int main()
             int originArray[numbersElements];
             int count = 0;
             int amount = 0;
-            while (fin >> k)
-            {
+            while (fin >> k) {
                 originArray[count] = k;
                 amount += originArray[count];
                 count++;
@@ -69,10 +68,8 @@ int main()
             int average = amount / count;
             int finalArray[numbersElements];
             int temp = 0;
-            for (int j = 0; j < count; j++)
-            {
-                if ((originArray[j] > average) && (originArray[j] > 0))
-                {
+            for (int j = 0; j < count; j++) {
+                if ((originArray[j] > average) && (originArray[j] > 0)) {
                     finalArray[temp] = originArray[j];
                     temp++;
                 }
@@ -89,9 +86,8 @@ int main()
             break;
         }
 
-        case 2:
-        {
-            const short int num = 10000;
+        case 2: {
+            const short int num = 15;
             int amounts = 0;
             int counts = 0;
             int oRandarr[num];
@@ -102,16 +98,14 @@ int main()
             streamOld(num, file_origin, originName);
 
             file_origin = fopen(originName, "r");
-            for (int i = 0; i < num; i++)
-            {
+            for (int i = 0; i < num; i++) {
                 fscanf(file_origin, "%d", &oRandarr[i]);
             }
             fclose(file_origin);
 
             cout << "\nOriginal array " << endl;
-            for(int i = 0; i < num; i++)
-            {
-                cout <<	oRandarr[i] << endl;
+            for (int i = 0; i < num; i++) {
+                cout << oRandarr[i] << endl;
                 amounts += oRandarr[i];
                 counts++;
             }
@@ -121,10 +115,8 @@ int main()
             int averages = amounts / counts;
             int fRandarr[num];
             int temporary = 0;
-            for (int j = 0; j < counts; j++)
-            {
-                if ((oRandarr[j] > averages) && (oRandarr[j] > 0))
-                {
+            for (int j = 0; j < counts; j++) {
+                if ((oRandarr[j] > averages) && (oRandarr[j] > 0)) {
                     fRandarr[temporary] = oRandarr[j];
                     temporary++;
                 }
@@ -134,7 +126,7 @@ int main()
 
             FILE *file_final;
             char *finalName = (char *) "new_numbers.txt";
-            
+
             streamFinal(fRandarr, temporary, file_final, finalName);
 
             break;
@@ -155,27 +147,24 @@ void streamOld(const short num, FILE *file_origin, const char *originName) {
     file_origin = fopen(originName, "w");
     fclose(file_origin);
     file_origin = fopen(originName, "a");
-    srand((unsigned int)time(NULL));
-    for (int i = 0; i < num; i++)
-            {
-                fprintf(file_origin, "%d ", (rand() % 201) - 100);
-            }
+    srand((unsigned int) time(NULL));
+    for (int i = 0; i < num; i++) {
+        fprintf(file_origin, "%d ", (rand() % 201) - 100);
+    }
     fclose(file_origin);
 }
 
 void streamFinal(const int *fRandarr, int temporary, FILE *file_final, const char *finalName) {
     file_final = fopen(finalName, "w");
-    for (int i = 0; i < temporary; i++)
-            {
-                fprintf(file_final, "%d ", fRandarr[i]);
-            }
+    for (int i = 0; i < temporary; i++) {
+        fprintf(file_final, "%d ", fRandarr[i]);
+    }
     fclose(file_final);
 
     cout << "\nFinal array: " << endl;
-    for(int i = 0; i < temporary; i++)
-            {
-                cout <<	fRandarr[i] << endl;
-            }
+    for (int i = 0; i < temporary; i++) {
+        cout << fRandarr[i] << endl;
+    }
 }
 
 char *finalTitle(const short TSIZE, char *title2) {
@@ -206,7 +195,7 @@ void addition(int numbersElements, const int *originArray, int average) {
 void ofStreamOld(int numbersElements, const char *title1) {
     ofstream fout;
     fout.open(title1);
-    srand((unsigned int)time(NULL));
+    srand((unsigned int) time(NULL));
     for (int i = 0; i < numbersElements; i++)
         fout << (rand() % 201) - 100 << endl;
     fout.close();

@@ -108,15 +108,17 @@ void math_work(int numberOfElements, const int *originArray, int &indexOfLNN, in
         cout << "We have not perfect numbers" << endl;
     } else {
         cout << "It is the first perfect number: " << perfectNumber << endl;
-        cout << "Its index: " << indexOfPN << endl << endl;
+        cout << "Its index: " << indexOfPN << endl
+             << endl;
     }
 }
 
 void create_binary_array(const int elements, const int *originArray, int *binaryArray) {
     for (int i = 0; i < elements; i++) {
-        binaryArray[i] = originArray[i] >> 2; // i/2^2
+        binaryArray[i] = originArray[i] >> 2;                                                // i/2^2
         binaryArray[i] = (binaryArray[i] ^ (binaryArray[i] >> 31)) - (binaryArray[i] >> 31); // module
-        binaryArray[i] = (binaryArray[i] ^ -1) + 1; // reversal of the sign of number
+        binaryArray[i] =
+                (binaryArray[i] ^ -1) + 1;                                          // reversal of the sign of number
     }
 }
 
