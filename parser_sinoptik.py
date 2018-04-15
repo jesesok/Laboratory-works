@@ -1,0 +1,21 @@
+import bs4
+import requests
+
+print("Узнай погоду в городе!")
+person_input = input("\nНапишите через дефис название города, в котором хотите узнать погоду: ")
+url = 'https://sinoptik.com.ru/погода-' + person_input.lower()
+page = requests.get(url)
+soup = bs4.BeautifulSoup(page.text, "html.parser")
+parse_min_mw = soup.select('.temperature .p3')
+min_morning_weather = parse_min_mw[0].getText()
+parse_max_mw = soup.select('.temperature .p4')
+max_morning_weather = parse_max_mw[0].getText()
+parse_min_aw = soup.select('.temperature .p5')
+min_afternoon_weather = parse_min_aw[0].getText()
+parse_max_aw = soup.select('.temperature .p6')
+max_weather_afternoon = parse_max_aw[0].getText()
+print('\nУтром: ' + min_morning_weather + ' ' + max_morning_weather)
+print('Днём: ' + min_afternoon_weather + ' ' + max_weather_afternoon)
+description = soup.select('.rSide .description')
+output_weather = description[0].getText()
+print(output_weather.strip())
